@@ -4,7 +4,15 @@ import './App.css';
 
 function App() {
   return (
-    <div>Hello World</div>
+    <>
+      <div>
+        0
+      </div>
+      <button>+1</button>
+      <button>-1</button>
+      <button>reset</button>
+      <button>+1 after 3 sec</button>
+    </>
   );
 }
 
