@@ -16,21 +16,21 @@ test('initial value is 0', ()=> {
   expect(getByTestId('count')).toHaveTextContent('0');
 })
 
-test('count up 1', () => {
+test('countUp', () => {
   const { getByTestId, getByText} = render(<App />);
   fireEvent.click(getByText('+'));
   expect(getByTestId('count')).toHaveTextContent('1');
 })
 
 
-test('count down 1', ()=>{
+test('countDown', ()=>{
   const { getByTestId, getByText} = render(<App />);
   fireEvent.click(getByText('-'));
   expect(getByTestId('count')).toHaveTextContent('0');
 })
 
 
-test('initialize', ()=>{
+test('reset', ()=>{
   const { getByTestId, getByText} = render(<App />);
   fireEvent.click(getByText('reset'));
   expect(getByTestId('count')).toHaveTextContent('0');
@@ -44,4 +44,13 @@ test('count value can not be less than 0',()=>{
   fireEvent.click(getByText('-'));
 
   expect(getByTestId('count')).toHaveTextContent('0');
+})
+
+test('asyncCountUp', () => {
+  const { getByTestId, getByText} = render(<App />);
+  jest.useFakeTimers();
+
+  fireEvent.click(getByText('+1 after 3 sec'));
+  expect(setTimeout).toHaveBeenCalledTimes(1);
+  expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 3000);
 })
