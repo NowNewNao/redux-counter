@@ -37,4 +37,11 @@ test('initialize', ()=>{
 });
 
 
-// test('count value can not be less than 0')
+test('count value can not be less than 0',()=>{
+  const { getByTestId, getByText} = render(<App />);
+  fireEvent.click(getByText('-'));
+  fireEvent.click(getByText('-'));
+  fireEvent.click(getByText('-'));
+
+  expect(getByTestId('count')).toHaveTextContent('0');
+})
