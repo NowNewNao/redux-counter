@@ -17,6 +17,10 @@ const App = () => {
     setCount(0);
   }
 
+  const asyncCountUp = () => {
+    setTimeout(countUp, 3000);
+  }
+
   return (
     <>
       <h1>counter</h1>    
@@ -26,7 +30,7 @@ const App = () => {
       <button onClick={countUp}>+</button>
       <button onClick={countDown}>-</button>
       <button onClick={reset}>reset</button>
-      <button>+1 after 3 sec</button>
+      <button onClick={asyncCountUp}>+1 after 3 sec</button>
     </>
   );
 }
