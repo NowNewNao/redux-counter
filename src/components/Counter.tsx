@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
+import './Counter.css';
 
-const App = () => {
+const Counter = () => {
   const [count, setCount] = useState(0);
 
   const countUp = () => {
@@ -35,4 +35,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default Counter;
