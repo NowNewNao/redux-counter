@@ -1,25 +1,28 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { counterValue } from '../counter/reducer';
 import './Counter.css';
+import {increment, decrement, reset} from '../counter/reducer'
 
 const Counter = () => {
-  const [count, setCount] = useState(0);
+  // UIにステート管理をもたせていたとき
+  // const [count, setCount] = useState(0);
+  // const countUp = () => {
+  //   setCount(count + 1);
+  // }
+  // const countDown = () => {
+  //   if(count === 0) return;
+  //   setCount(count - 1);
+  // }
+  // const reset = () => {
+  //   setCount(0);
+  // }
+  // const asyncCountUp = () => {
+  //   setTimeout(countUp, 3000);
+  // }
 
-  const countUp = () => {
-    setCount(count + 1);
-  }
-
-  const countDown = () => {
-    if(count === 0) return;
-    setCount(count - 1);
-  }
-
-  const reset = () => {
-    setCount(0);
-  }
-
-  const asyncCountUp = () => {
-    setTimeout(countUp, 3000);
-  }
+  const count = useAppSelector(counterValue); // reducerでmutateされたvalueをとってくる
+  const dispatch = useAppDispatch(); // 変更をdispatchする。今回の場合はonClickイベントの発火にて
 
   return (
     <>
@@ -27,10 +30,13 @@ const Counter = () => {
       <div data-testid='count'>
         {count}
       </div>
-      <button onClick={countUp}>+</button>
-      <button onClick={countDown}>-</button>
-      <button onClick={reset}>reset</button>
-      <button onClick={asyncCountUp}>+1 after 3 sec</button>
+      <button onClick={() => dispatch(increment())}>+</button>
+      <button onClick={() => dispatch(decrement())}>-</button>
+      <button onClick={() => dispatch(reset())}>reset</button>
+      <button onClick={()=>{setTimeout(()=>{ dispatch(increment())}, 3000)}} // たぶんsetTimeoutじゃないほうがよさそうではある
+        >
+          +1 after 3 sec
+      </button>
     </>
   );
 }

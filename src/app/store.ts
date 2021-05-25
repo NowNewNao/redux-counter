@@ -8,3 +8,8 @@ export const store = configureStore({
     counter: counterReducer,
   },
 });
+
+
+// RootStateとDispatchの型定義 useSelector, useDispatchをするために必要
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

@@ -1,4 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../app/store";
 
 type State = {
   value: number;
@@ -8,22 +9,6 @@ const initialState: State = {
   value: 0,
 }
 
-export const asyncCount = (currentValue: number) => {
-  return new Promise (resolve => {
-    setTimeout(() => {
-      resolve(currentValue +1)
-    }, 3000)
-  })
-}
-
-export const asyncIncrement = createAsyncThunk (
-  'asyncCount',
-  async (value: number) => {
-    const res = await asyncCount(value);
-    console.log(`res: `, res)
-  }
-);
-
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
@@ -32,12 +17,15 @@ export const counterSlice = createSlice({
       state.value += 1;
     },
     decrement: (state) => {
+      if(state.value === 0) return;
       state.value -= 1;
     },
-    asyncIncrement: (state) => {
-      asyncCount(state.value);
-    }
+    reset: (state) => {
+      state.value = 0;
+    },
   },
 });
+export const { increment, decrement, reset } = counterSlice.actions;
+export const counterValue = (state: RootState) => state.counter.value;
 
 export default counterSlice.reducer;
